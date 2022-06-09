@@ -1,0 +1,16 @@
+<mat-label>Variable Groups</mat-label>
+
+<mat-card>
+    <mat-selection-list>
+        <mat-list-option *ngFor="let groups of (variables| async)">
+            {{groups.name}}
+        </mat-list-option>
+    </mat-selection-list>
+</mat-card>
+
+<button mat-button (click)="onBtnClick()">Click me</button>
+
+
+<ul>
+    <li *ngFor="let el of myELements">{{el}}</li>
+</ul>

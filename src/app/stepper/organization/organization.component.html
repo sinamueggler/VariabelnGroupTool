@@ -1,0 +1,54 @@
+<form onSubmit="return false;">
+  <div class="org1">
+    <mat-form-field class="PAT-full-width" appearance="fill">
+      <mat-label>Organisations Namen </mat-label>
+      <input type="text" matInput placeholder="egeli-informatik-vsts" required="true" #org1>
+
+    </mat-form-field>
+    <div>
+      <button class="set" mat-stroked-button color="primary" (click)="addOrganisation('org1',org1.value)">
+        Add Organisation
+      </button>
+      <button class="set" mat-stroked-button color="primary" (click)="clearOrganisations()">
+        remove all
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
+<div class="content">
+  <div>
+    <app-organization-list *ngIf="organisations" [organization]="organisations"></app-organization-list>
+  </div>
+</div>
+
+
+<!-- <div class="org1">
+  <mat-form-field appearance="fill">
+    <mat-label>Organisation 1</mat-label>
+    <mat-select (selectionChange)="onSelectedOrg1($event.value)" [formControl]="OrganisationControl" required>
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let option of organisations" [value]="option">
+        {{option}}
+      </mat-option>
+
+    </mat-select>
+
+    <mat-error *ngIf="OrganisationControl.hasError('required')">Bitte eine Organisation auswählen</mat-error>
+    <mat-hint>{{OrganisationControl.value?.sound}}</mat-hint>
+  </mat-form-field>
+</div>
+
+<div class="org2">
+  <mat-form-field appearance="fill">
+    <mat-label>Organisation 2</mat-label>
+    <mat-select (selectionChange)="onSelectedOrg2($event.value)">
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let option of organisations" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>  -->

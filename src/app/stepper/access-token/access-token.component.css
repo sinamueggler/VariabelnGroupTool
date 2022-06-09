@@ -1,0 +1,17 @@
+.PAT-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .PAT-full-width {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    margin-top: 16px;
+  }
+  .mat-stepper-vertical {
+    margin-top: 8px;
+  }
+ 

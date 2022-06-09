@@ -1,0 +1,13 @@
+
+<form onSubmit="return false;">
+  <div class="proj1">
+    <mat-form-field appearance="fill">
+      <mat-label>Projects</mat-label>
+      <mat-select (selectionChange)="onSelect()"[(value)]="selectedProject">
+        <mat-option *ngFor="let project of (projects| async) " [value]="project"  >
+          {{project.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

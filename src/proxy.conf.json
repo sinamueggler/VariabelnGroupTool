@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://dev.azure.com/",
+        "secure": true,
+        "logLevel": "debug"
+    }
+}

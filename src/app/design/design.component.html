@@ -1,0 +1,37 @@
+<mat-toolbar class="mat-h1" color="primary">Variablen Group Tool</mat-toolbar>
+
+<div class="grid-container">
+  <mat-vertical-stepper #stepper>
+
+    <mat-step label="Access-Token" optional="false">
+      <app-access-token (accessTokenSelected)="accessTokenSelected($event)"></app-access-token>
+      <div class="stepButton">
+        <button mat-button matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step label="Organisationen" optional="false">
+
+      <app-organization></app-organization>
+
+      <div class="stepButton">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step label="Projects" optional="false" #projectStep>
+
+      <app-projects *ngIf="stepper.selected == projectStep" ></app-projects>
+
+    </mat-step>
+
+    <mat-step label="Variables" optional="false"  >
+
+      <app-variables></app-variables>
+
+    </mat-step>
+
+    <mat-vertical-stepper>

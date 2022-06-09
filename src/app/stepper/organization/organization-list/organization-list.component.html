@@ -1,0 +1,22 @@
+<div>
+<mat-form-field appearance="fill">
+    <mat-label>Organisation 1</mat-label>
+    <mat-select (selectionChange)="onSelectedOrg1($event.value)">
+      
+      <mat-option *ngFor="let option of organization" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> 
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Organisation 2</mat-label>
+        <mat-select (selectionChange)="onSelectedOrg2($event.value)">
+          
+          <mat-option *ngFor="let option of organization" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div> 
