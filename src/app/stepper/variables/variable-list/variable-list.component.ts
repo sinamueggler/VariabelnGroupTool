@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, Subject } from 'rxjs';
+import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
+import { VariablenGroupReference } from 'src/app/model/variablenGroupReference';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';
 import { EventService } from 'src/app/services/event.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -13,18 +15,21 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class VariableListComponent implements OnInit {
   
   @Input()
-  project: string|undefined;
+  project: TeamProjectReference|undefined;
 
   @Input()
   organization: string|undefined;
 
-  variables: Observable<any[]>| undefined;
+  @Input()
+  selectable: boolean|undefined;
+
+  variables: Observable<VariablenGroupReference[]>| undefined;
   selection= new FormControl();
+  selectedOption: VariablenGroupReference | undefined;
 
   myELements: string[] = [];
 
-  constructor(
-    private localStorageService: LocalStorageService, 
+  constructor( 
     private devopsService: DevopsServiceService,
     private eventService: EventService) { }
 
@@ -37,23 +42,30 @@ export class VariableListComponent implements OnInit {
     this.loadVariables();
   }
 
-  onBtnClick(){
-    this.eventService.submitToMySubject('Hello from ' + this.project);
-  }
-
   loadVariables(): void {
     if(!this.organization || !this.project){
       alert('No valid organization or project');
       return;
     }
-    const variables: Observable<any[]>= this.devopsService.getVariables(this.organization, this.project)
+    this.variables= this.devopsService.getVariables(this.organization, this.project)
     .pipe(
-      map(x=> x.value as any[]),
+      map(x=> x.value),
     );
 
-      this.variables= variables;
-     
-
   }
+
+  updateVariables(){
+
+
+
+    
+  }
+  // SaveSelectedOption(event: VariablenGroupReference){
+  //   if(this.selectedOption){
+  //     this.eventService.addToStorage(this.selectedOption!, event.name);
+  //   }
+
+  // }
+
 
 }

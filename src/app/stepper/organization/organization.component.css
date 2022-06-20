@@ -24,3 +24,9 @@
 .mat-stepper-vertical {
   margin-top: 8px;
 }
+.content {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 25px;
+}

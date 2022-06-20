@@ -4,6 +4,7 @@ import { Observable, shareReplay } from 'rxjs';
 import { accessTokenInfo } from '../model/accessTokenInfo.model';
 import { CollectionValue } from '../model/collectionValue.model';
 import { TeamProjectReference } from '../model/teamProjectReference.model';
+import { VariablenGroupReference } from '../model/variablenGroupReference';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -34,7 +35,7 @@ export class DevopsServiceService {
 
   }
 
-  public getVariables(org: string, project: string):Observable<any> {
+  public getVariables(org: string, project: TeamProjectReference):Observable<any> {
 
     const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");
     var b64Token = btoa(':' + json?.accessToken ?? '');
@@ -48,6 +49,20 @@ export class DevopsServiceService {
       responseType: 'json'
     });
 
+  }
+
+  public UpdateVariableGoups(org: string, project: TeamProjectReference, varId: VariablenGroupReference ){
+    const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");
+    var b64Token = btoa(':' + json?.accessToken ?? '');
+
+    var headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Basic ' + b64Token);
+
+
+    return this.httpClient.put<any[]>(this.projectUrl+org+'/'+project+'/_apis/distributedtask/variablegroups/' +varId +'?api-version=7.1-preview.2', {
+      headers: headers,
+      responseType: 'json'
+    });
   }
 
 

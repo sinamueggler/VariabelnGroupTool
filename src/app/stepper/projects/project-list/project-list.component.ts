@@ -15,8 +15,13 @@ export class ProjectListComponent implements OnInit {
   @Input()
   organization:string|undefined;
 
+  @Input()
+  saveName: string|undefined;
   
-  selectedProject: TeamProjectReference| undefined;
+  previousValue: string|undefined;
+
+  selectedProject1: TeamProjectReference| undefined;
+  selectedProject2: TeamProjectReference| undefined;
 
   projects: Observable<TeamProjectReference[]>| undefined;
 
@@ -27,6 +32,9 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('init proj list');
+
+    this.previousValue = this.eventService.getFromStorage(this.saveName!);
+
     this.loadProjects();
   }
 
@@ -41,16 +49,21 @@ export class ProjectListComponent implements OnInit {
     );
 
 
-      this.selectedProject= this.eventService.getSelectedProjectReference(); 
+    //  this.selectedProject1= this.eventService.getSelectedProjectReference(); 
   }
 
-  onSelect(){
-    if(this.selectedProject){
+  onSelectProj(event: TeamProjectReference){
+    if(this.selectedProject1){
 
-      this.eventService.setSelectedProjectReference(this.selectedProject)
+      this.eventService.addToStorage(this.saveName!, event.name);
+      console.log(this.saveName! + ': '+ this.eventService.getFromStorage(this.saveName!) );
+      // this.eventService.setSelectedProjectReference(this.selectedProject)
     }
 
   }
+
+
+
 
 
 

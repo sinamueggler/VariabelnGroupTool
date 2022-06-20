@@ -29,16 +29,13 @@ export class OrganizationComponent implements OnInit {
 
   }
 
-
-  addOrganisation(key: string, orgVal: string) {
-
-    this.localStorageService.addOrganisation(key, orgVal);
-    this.organisations = this.localStorageService.getAllOrganaisations();
+  addOrganisation(org: string) {
+    this.organisations.push(org);
 
   }
-
   clearOrganisations() {
-    this.localStorageService.clearOrganisations();
+    this.organisations = [];
+
   }
 
 

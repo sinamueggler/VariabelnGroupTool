@@ -15,17 +15,21 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 import { AccessTokenComponent } from './stepper/access-token/access-token.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { VariableListComponent } from './stepper/variables/variable-list/variable-list.component';
 import { ProjectListComponent } from './stepper/projects/project-list/project-list.component';
 import { OrganizationListComponent } from './stepper/organization/organization-list/organization-list.component';
@@ -48,10 +52,10 @@ import { OrganizationListComponent } from './stepper/organization/organization-l
     VariableListComponent,
     ProjectListComponent,
     OrganizationListComponent,
- 
+
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
@@ -59,21 +63,25 @@ import { OrganizationListComponent } from './stepper/organization/organization-l
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatRadioModule,
     LayoutModule,
     MatToolbarModule,
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
     MatSelectModule,
     MatListModule,
+    MatDividerModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatExpansionModule,
     DragDropModule
   ],
 
-  
+
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ],
   bootstrap: [AppComponent]
 })

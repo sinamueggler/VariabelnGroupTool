@@ -2,55 +2,9 @@
 
 <div class="content">
   <div>
-    <app-project-list *ngIf="currentOrg1" [organization]="currentOrg1"></app-project-list>
+    <app-project-list saveName="selectedProj1" *ngIf="currentOrg1" [organization]="currentOrg1"></app-project-list>
   </div>
   <div>
-    <app-project-list *ngIf="currentOrg2" [organization]="currentOrg2"></app-project-list>
+    <app-project-list saveName="selectedProj2" *ngIf="currentOrg2" [organization]="currentOrg2"></app-project-list>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <form onSubmit="return false;">
-  <div class="proj1">
-    <mat-form-field appearance="fill">
-      <mat-label>Project 1</mat-label>
-      <mat-select (click)="loadProjects()">
-        <mat-option *ngFor="let project of (projects| async) " [value]="project" (click)="onSelectedProj('selectedProj1',$event)">
-          {{project.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div class="proj2">
-    <mat-form-field appearance="fill">
-      <mat-label >Project 2</mat-label>
-      <mat-select (click)="loadProjects()" >
-        <mat-option *ngFor="let project of ( projects| async)"  [value]="project" (click)="onSelectedProj('selectedProj2',$event)" >
-          {{project.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> 
-  </div>
-
-</form> -->

@@ -1,28 +1,28 @@
-<form onSubmit="return false;">
-  <div class="org1">
-    <mat-form-field class="PAT-full-width" appearance="fill">
-      <mat-label>Organisations Namen </mat-label>
-      <input type="text" matInput placeholder="egeli-informatik-vsts" required="true" #org1>
-
-    </mat-form-field>
-    <div>
-      <button class="set" mat-stroked-button color="primary" (click)="addOrganisation('org1',org1.value)">
-        Add Organisation
-      </button>
-      <button class="set" mat-stroked-button color="primary" (click)="clearOrganisations()">
-        remove all
-      </button>
-    </div>
-  </div>
-</form>
-
-
 
 <div class="content">
+  <form onSubmit="return false;">
+    <div class="org1">
+      <mat-form-field class="PAT-full-width" appearance="fill">
+        <mat-label>Organisations Namen </mat-label>
+        <input type="text" matInput placeholder="egeli-informatik-vsts" required="true" #addOrg>
+  
+      </mat-form-field>
+      <div>
+        <button class="set" mat-stroked-button color="primary" (click)="addOrganisation(addOrg.value)">
+          Add Organisation
+        </button>
+        <button class="set" mat-stroked-button color="primary" (click)="clearOrganisations()">
+          remove all
+        </button>
+      </div>
+    </div>
+  </form>
   <div>
-    <app-organization-list *ngIf="organisations" [organization]="organisations"></app-organization-list>
+    <app-organization-list *ngIf="organisations.length" [organization]="organisations"></app-organization-list>
   </div>
 </div>
+
+
 
 
 <!-- <div class="org1">

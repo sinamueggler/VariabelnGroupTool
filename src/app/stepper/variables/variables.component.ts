@@ -2,7 +2,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable } from 'rxjs';
+import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
+import { VariablenGroupReference } from 'src/app/model/variablenGroupReference';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';
+import { EventService } from 'src/app/services/event.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -11,43 +14,31 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./variables.component.css']
 })
 export class VariablesComponent implements OnInit {
-  variables: Observable<any[]>| undefined;
+  variables: Observable<VariablenGroupReference[]>| undefined;
 
   currentOrg1: string|undefined;
-  project1: string|undefined;
+  project1: TeamProjectReference|undefined;
   currentOrg2: string|undefined;
-  project2: string|undefined;
+  project2: TeamProjectReference|undefined;
 
   selection= new FormControl();
 
-  constructor(private localStorageService: LocalStorageService, private devopsService: DevopsServiceService) { }
+  constructor(private localStorageService: LocalStorageService, 
+    private devopsService: DevopsServiceService,
+    private eventService: EventService) { }
 
 
   ngOnInit(): void {
     this.currentOrg1 =this.localStorageService.getFromLocalStorage('selectedOrg1')!;
-    this.project1 = this.localStorageService.getFromLocalStorage('selectedProj1')!;
+    this.project1 = this.eventService.getFromStorage('selectedProj1')!;
 
     this.currentOrg2 =this.localStorageService.getFromLocalStorage('selectedOrg2')!;
-    this.project2 = this.localStorageService.getFromLocalStorage('selectedProj2')!;
+    this.project2 = this.eventService.getFromStorage('selectedProj2')!;
+
+
+    console.log(' proj1: '+ this.project1);
+    console.log(' proj2: '+ this.project2);
   }
-
-
-  loadVariables(org: string, proj: string): void {
-
-    const currentOrg: string =this.localStorageService.getFromLocalStorage(org)!;
-    const project: string = this.localStorageService.getFromLocalStorage(proj)!;
-    
-    const projectA: Observable<any[]>= this.devopsService.getVariables(currentOrg, project)
-    .pipe(
-      map(x=> x.value as any[]),
-    );
-
-      this.variables= projectA;
-     
-
-  }
-
-  
 
 
 

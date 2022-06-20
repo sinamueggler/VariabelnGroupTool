@@ -1,16 +1,49 @@
-<mat-label>Variable Groups</mat-label>
-
+<mat-label>Variable Group from Project {{this.project}}</mat-label>
+<!-- 
 <mat-card>
     <mat-selection-list>
         <mat-list-option *ngFor="let groups of (variables| async)">
             {{groups.name}}
         </mat-list-option>
     </mat-selection-list>
+</mat-card> -->
+
+
+<mat-card>
+  <div *ngIf="selectable; else asList">
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+      [(ngModel)]="selectedOption">
+
+      <mat-list-item>
+        <mat-radio-button class="example-radio-button" *ngFor="let groups of (variables| async)" [value]="groups.name">
+
+          <mat-list>
+            {{groups.name}}
+          </mat-list>
+
+        </mat-radio-button>
+      </mat-list-item>
+    </mat-radio-group>
+    <div>Selected Project {{selectedOption}}</div>
+  </div>
+
+  <ng-template #asList>
+    <mat-list class="radioBtnList">
+      
+      <mat-list-item *ngFor="let groups of (variables| async)">
+        <div><p>id:{{groups.id}},  {{groups.name}}</p></div>
+          
+        
+      </mat-list-item>
+    </mat-list>
+  </ng-template>
+
 </mat-card>
 
-<button mat-button (click)="onBtnClick()">Click me</button>
+
+<!-- <button mat-button (click)="onBtnClick()">Click me</button> -->
 
 
 <ul>
-    <li *ngFor="let el of myELements">{{el}}</li>
+  <li *ngFor="let el of myELements">{{el}}</li>
 </ul>

@@ -28,9 +28,9 @@
 
     </mat-step>
 
-    <mat-step label="Variables" optional="false"  >
+    <mat-step label="Variables" optional="false"  #VarStep>
 
-      <app-variables></app-variables>
+      <app-variables *ngIf=" stepper.selected== VarStep"></app-variables>
 
     </mat-step>
 
