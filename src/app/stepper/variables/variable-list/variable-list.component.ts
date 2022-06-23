@@ -20,10 +20,13 @@ export class VariableListComponent implements OnInit {
   @Input()
   organization: string|undefined;
 
+
+
   @Input()
   selectable: boolean|undefined;
 
   variables: Observable<VariablenGroupReference[]>| undefined;
+  updatedVariables: string|undefined;
   selection= new FormControl();
   selectedOption: VariablenGroupReference | undefined;
 
@@ -54,12 +57,17 @@ export class VariableListComponent implements OnInit {
 
   }
 
-  updateVariables(){
+  
+
+  // updateVariables():void{
+
+  //   this.devopsService.UpdateVariableGoups(this.organization, this.project, this.variables.id )
 
 
+  // }
 
-    
-  }
+
+}
   // SaveSelectedOption(event: VariablenGroupReference){
   //   if(this.selectedOption){
   //     this.eventService.addToStorage(this.selectedOption!, event.name);
@@ -68,4 +76,3 @@ export class VariableListComponent implements OnInit {
   // }
 
 
-}
