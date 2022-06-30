@@ -55,7 +55,9 @@ export class ProjectListComponent implements OnInit {
   onSelectProj(event: TeamProjectReference){
     if(this.selectedProject1){
 
-      this.eventService.addToStorage(this.saveName!, event.name);
+      this.eventService.addToStorage(this.saveName!, {name: event.name, id: event.id});
+
+      var sdasda = this.eventService.getFromStorage(this.saveName!);
       console.log(this.saveName! + ': '+ this.eventService.getFromStorage(this.saveName!) );
       // this.eventService.setSelectedProjectReference(this.selectedProject)
     }

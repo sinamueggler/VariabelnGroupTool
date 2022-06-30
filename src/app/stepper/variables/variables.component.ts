@@ -30,10 +30,10 @@ export class VariablesComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentOrg1 =this.localStorageService.getFromLocalStorage('selectedOrg1')!;
-    this.project1 = this.eventService.getFromStorage('selectedProj1')!;
+    this.project1 = this.eventService.getFromStorage('selectedProj1').name!;
 
     this.currentOrg2 =this.localStorageService.getFromLocalStorage('selectedOrg2')!;
-    this.project2 = this.eventService.getFromStorage('selectedProj2')!;
+    this.project2 = this.eventService.getFromStorage('selectedProj2').name!;
 
 
     console.log(' proj1: '+ this.project1);

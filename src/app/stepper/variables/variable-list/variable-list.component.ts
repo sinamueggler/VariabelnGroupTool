@@ -43,6 +43,7 @@ export class VariableListComponent implements OnInit {
 
 
     this.loadVariables();
+    // this.PutUpdateVariableGroup();
   }
 
   loadVariables(): void {
@@ -57,14 +58,17 @@ export class VariableListComponent implements OnInit {
 
   }
 
-  
+  PutUpdateVariableGroup(){
 
-  // updateVariables():void{
+    if(this.selectedOption){
+      this.devopsService.PutUpdateVariableGroup(this.organization!, this.selectedOption.id);
+    }
 
-  //   this.devopsService.UpdateVariableGoups(this.organization, this.project, this.variables.id )
+
+  }
 
 
-  // }
+
 
 
 }

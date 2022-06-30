@@ -15,16 +15,18 @@
       [(ngModel)]="selectedOption">
 
       <mat-list-item>
-        <mat-radio-button class="example-radio-button" *ngFor="let groups of (variables| async)" [value]="groups.name">
+        <mat-radio-button class="example-radio-button" *ngFor="let groups of (variables| async)" [value]="groups">
 
-          <mat-list>
-            {{groups.name}}
+          <mat-list >
+           {{groups.id}} {{groups.name}}
           </mat-list>
 
         </mat-radio-button>
       </mat-list-item>
     </mat-radio-group>
     <div>Selected Project {{selectedOption}}</div>
+
+    <button mat-button (click)="PutUpdateVariableGroup()">update </button>
   </div>
 
   <ng-template #asList>
