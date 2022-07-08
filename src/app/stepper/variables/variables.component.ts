@@ -36,8 +36,7 @@ export class VariablesComponent implements OnInit {
     this.project2 = this.eventService.getFromStorage('selectedProj2').name!;
 
 
-    console.log(' proj1: '+ this.project1);
-    console.log(' proj2: '+ this.project2);
+    
   }
 
 

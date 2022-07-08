@@ -13,9 +13,10 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class DevopsServiceService {
 
-  constructor(private localstorageService: LocalStorageService, private httpClient: HttpClient, private eventService:EventService) { }
+  constructor(private localstorageService: LocalStorageService, private httpClient: HttpClient, private eventService: EventService) { }
 
   private projectUrl = 'https://dev.azure.com/'
+
 
   public getProjects(org: string): Observable<CollectionValue<TeamProjectReference>> {
 
@@ -26,7 +27,7 @@ export class DevopsServiceService {
     headers = headers.set('Authorization', 'Basic ' + b64Token);
 
 
-    return this.httpClient.get<CollectionValue<TeamProjectReference>>(this.projectUrl + org +'/_apis/projects?api-version=6.0', {
+    return this.httpClient.get<CollectionValue<TeamProjectReference>>(this.projectUrl + org + '/_apis/projects?api-version=6.0', {
       headers: headers,
       responseType: 'json'
     }).pipe(
@@ -36,7 +37,7 @@ export class DevopsServiceService {
 
   }
 
-  public getVariables(org: string, project: TeamProjectReference):Observable<CollectionValue<VariablenGroupReference>> {
+  public getVariables(org: string, project: TeamProjectReference): Observable<CollectionValue<VariablenGroupReference>> {
 
     const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");
     var b64Token = btoa(':' + json?.accessToken ?? '');
@@ -45,46 +46,86 @@ export class DevopsServiceService {
     headers = headers.set('Authorization', 'Basic ' + b64Token);
 
 
-    return this.httpClient.get<CollectionValue<VariablenGroupReference>>(this.projectUrl + org+ '/'+project+'/_apis/distributedtask/variablegroups?api-version=7.1-preview.2', {
+    return this.httpClient.get<CollectionValue<VariablenGroupReference>>(this.projectUrl + org + '/' + project + '/_apis/distributedtask/variablegroups?api-version=7.1-preview.2', {
       headers: headers,
       responseType: 'json'
     }).pipe(
       shareReplay(1)
     );
-    // return this.httpClient.get<any[]>(this.projectUrl+org+'/'+project+'/_apis/distributedtask/variablegroups?api-version=7.1-preview.2', {
-    //   headers: headers,
-    //   responseType: 'json'
-    // });
 
   }
 
-  public PutUpdateVariableGroup(org: string, groupId: string):Observable<CollectionValue<VariablenGroupReference>>{
+  public AddVariableGroup(org: string, varGroupName: any, projRef: TeamProjectReference): Observable<CollectionValue<VariablenGroupReference>> {
+    const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");
+    var b64Token = btoa(':' + json?.accessToken ?? '');
+
+    var headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Basic ' + b64Token);
+    headers = headers.set('Content-Type', 'application/json');
+
+    var targetProj = this.eventService.getFromStorage('selectedProj2');
+
+
+
+    return this.httpClient.post<CollectionValue<VariablenGroupReference>>(
+      this.projectUrl + org + '/_apis/distributedtask/variablegroups?api-version=7.1-preview.2',
+      JSON.stringify({
+        responseType: "json",
+        type: varGroupName.type,
+        description: varGroupName.description,
+        name: varGroupName.name,
+        variableGroupProjectReferences: [
+          {
+            projectReference: {
+              id: targetProj.id,
+              projectName: targetProj.name
+            },
+            name: varGroupName.name,
+          }
+        ],
+        variables: varGroupName.variables
+
+      }),
+      { 'headers': headers }
+    )
+
+
+
+  }
+
+  //problemm vargroupname 
+  public PutUpdateVariableGroup(org: string, groupId: string, varGroupName: any,): Observable<CollectionValue<VariablenGroupReference>> {
 
     const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");
     var b64Token = btoa(':' + json?.accessToken ?? '');
 
     var headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Basic ' + b64Token);
-    var selectedProj= this.eventService.getFromStorage('selectedProj1');
+    headers = headers.set('Content-Type', 'application/json');
 
-    return this.httpClient.put<CollectionValue<VariablenGroupReference>>(this.projectUrl + org+ '/'+'_apis/distributedtask/variablegroups/'+ groupId+'?api-version=7.1-preview.2', {
-      headers: headers,
-      responseType: 'json',
-
-      type: "Vsts",
-      // variableGroupProjectReferences:
-
-      // var projId= this.eventService.getFromStorage(this.electedProject1)
-      //body request
+    var targetProj = this.eventService.getFromStorage('selectedProj2');
 
 
+    return this.httpClient.put<CollectionValue<VariablenGroupReference>>(
+      this.projectUrl + org + '/' + '_apis/distributedtask/variablegroups/' + groupId + '?api-version=7.1-preview.2',
+      JSON.stringify({
+        responseType: "json",
+        type: varGroupName.type,
+        name: varGroupName.name,
+        variableGroupProjectReferences: [
+          {
+            projectReference: {
+              id: targetProj.id,
+              projectName: targetProj.name
+            },
+            name: varGroupName.name,
+          }
+        ],
+        variables: varGroupName.variables
 
-    }).pipe(
-      shareReplay(1)
-    );
+      }),
+      { 'headers': headers }
+    )
+
   }
-  
-  
-
-
 }

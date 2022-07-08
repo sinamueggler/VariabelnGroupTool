@@ -20,7 +20,8 @@ export class VariableListComponent implements OnInit {
   @Input()
   organization: string|undefined;
 
-
+  @Input()
+  addVariablesToStorage: boolean|undefined;
 
   @Input()
   selectable: boolean|undefined;
@@ -53,30 +54,45 @@ export class VariableListComponent implements OnInit {
     }
     this.variables= this.devopsService.getVariables(this.organization, this.project)
     .pipe(
-      map(x=> x.value),
+      map(x=> {
+        if(this.addVariablesToStorage){
+          this.eventService.addToStorage("savedVariables", x.value);
+        }
+        return x.value;
+      }),
     );
 
   }
 
-  PutUpdateVariableGroup(){
-
+  CopyVariableTotargetProject(){
     if(this.selectedOption){
-      this.devopsService.PutUpdateVariableGroup(this.organization!, this.selectedOption.id);
+
+      const targetVariables = this.eventService.getFromStorage("savedVariables");
+     
+      const foundVariable = targetVariables.find((v: any) => v.name === this.selectedOption?.name)
+
+      if(foundVariable !== undefined){
+        //update
+        
+        console.log('Updating variable...');
+        this.devopsService.PutUpdateVariableGroup(this.organization!, foundVariable.id, this.selectedOption)
+        .subscribe(x=> {
+          console.log(x);
+        })
+      } else{
+        //add
+        console.log('Crating new variable...');
+
+        this.devopsService.AddVariableGroup(this.organization!, this.selectedOption, this.project!)
+        .subscribe(x=> {
+          console.log(x);
+        })
+      }
+      
+
     }
-
-
   }
 
 
-
-
-
-}
-  // SaveSelectedOption(event: VariablenGroupReference){
-  //   if(this.selectedOption){
-  //     this.eventService.addToStorage(this.selectedOption!, event.name);
-  //   }
-
-  // }
-
+  }
 

@@ -17,7 +17,7 @@
       <mat-list-item>
         <mat-radio-button class="example-radio-button" *ngFor="let groups of (variables| async)" [value]="groups">
 
-          <mat-list >
+          <mat-list>
            {{groups.id}} {{groups.name}}
           </mat-list>
 
@@ -26,7 +26,10 @@
     </mat-radio-group>
     <div>Selected Project {{selectedOption}}</div>
 
-    <button mat-button (click)="PutUpdateVariableGroup()">update </button>
+    <button mat-button (click)="CopyVariableTotargetProject()">Copy</button>
+
+
+
   </div>
 
   <ng-template #asList>
