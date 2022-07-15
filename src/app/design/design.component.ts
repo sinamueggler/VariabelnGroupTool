@@ -14,16 +14,16 @@ export class DesignComponent implements OnInit{
   variables: Observable<any[]>| undefined;
 
 
-  constructor(private _formBuilder: FormBuilder, private devopsService: DevopsServiceService, private localStorageService: LocalStorageService){}
+  constructor(private devopsService: DevopsServiceService, private localStorageService: LocalStorageService){}
   ngOnInit(): void {
     
-  
+  this.accessTokenSelected("valueselected");
   
   }
 
 
   accessTokenSelected(token: string){
-    console.log(token);
+    
   }
 
  

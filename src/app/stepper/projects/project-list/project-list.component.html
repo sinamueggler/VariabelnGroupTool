@@ -1,7 +1,7 @@
 <div>
   <mat-form-field appearance="fill">
     <mat-label>Projects</mat-label>
-    <mat-select (selectionChange)="onSelectProj($event.value)" [(value)]="selectedProject1" [value]="previousValue">
+    <mat-select (selectionChange)="onSelectProj($event.value)" [(value)]="selectedProject1" >
       <mat-option *ngFor="let project of (projects| async) " [value]="project">
         {{project.name}}
       </mat-option>

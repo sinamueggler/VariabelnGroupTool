@@ -93,7 +93,10 @@ export class DevopsServiceService {
 
   }
 
-  //problemm vargroupname 
+  
+
+
+  
   public PutUpdateVariableGroup(org: string, groupId: string, varGroupName: any,): Observable<CollectionValue<VariablenGroupReference>> {
 
     const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");

@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable, Subject, switchAll } from 'rxjs';
 import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
 import { VariablenGroupReference } from 'src/app/model/variablenGroupReference';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';
 import { EventService } from 'src/app/services/event.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-variable-list',
@@ -13,29 +14,32 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./variable-list.component.css']
 })
 export class VariableListComponent implements OnInit {
-  
-  @Input()
-  project: TeamProjectReference|undefined;
 
   @Input()
-  organization: string|undefined;
+  project: TeamProjectReference | undefined;
 
   @Input()
-  addVariablesToStorage: boolean|undefined;
+  organization: string | undefined;
 
   @Input()
-  selectable: boolean|undefined;
+  addVariablesToStorage: boolean | undefined;
 
-  variables: Observable<VariablenGroupReference[]>| undefined;
-  updatedVariables: string|undefined;
-  selection= new FormControl();
+  @Input()
+  selectable: boolean | undefined;
+
+  variables: Observable<VariablenGroupReference[]> | undefined;
+  updatedVariables: string | undefined;
+  selection = new FormControl();
   selectedOption: VariablenGroupReference | undefined;
+  organization1: string | undefined;
+  organization2: string | undefined;
+
 
   myELements: string[] = [];
 
-  constructor( 
+  constructor(
     private devopsService: DevopsServiceService,
-    private eventService: EventService) { }
+    private eventService: EventService, private localstorageService: LocalStorageService) { }
 
   ngOnInit(): void {
 
@@ -44,55 +48,79 @@ export class VariableListComponent implements OnInit {
 
 
     this.loadVariables();
-    // this.PutUpdateVariableGroup();
   }
 
   loadVariables(): void {
-    if(!this.organization || !this.project){
+    if (!this.organization || !this.project) {
       alert('No valid organization or project');
       return;
     }
-    this.variables= this.devopsService.getVariables(this.organization, this.project)
-    .pipe(
-      map(x=> {
-        if(this.addVariablesToStorage){
-          this.eventService.addToStorage("savedVariables", x.value);
-        }
-        return x.value;
-      }),
-    );
+    this.variables = this.devopsService.getVariables(this.organization, this.project)
+      .pipe(
+        map(x => {
+          if (this.addVariablesToStorage) {
+            this.eventService.addToStorage("savedVariables", x.value);
+          }
+          return x.value;
+        }),
+      );
 
   }
 
-  CopyVariableTotargetProject(){
-    if(this.selectedOption){
+  CopyVariableTotargetProject() {
+    if (this.selectedOption) {
 
       const targetVariables = this.eventService.getFromStorage("savedVariables");
-     
+
+      this.organization1 = this.localstorageService.getFromLocalStorage("selectedOrg1");
+      this.organization2 = this.localstorageService.getFromLocalStorage("selectedOrg2");
+
+
       const foundVariable = targetVariables.find((v: any) => v.name === this.selectedOption?.name)
 
-      if(foundVariable !== undefined){
+      if (foundVariable !== undefined) {
         //update
-        
+
         console.log('Updating variable...');
         this.devopsService.PutUpdateVariableGroup(this.organization!, foundVariable.id, this.selectedOption)
-        .subscribe(x=> {
-          console.log(x);
-        })
-      } else{
+          .subscribe(x => {
+            console.log(x);
+          })
+      } else {
         //add
-        console.log('Crating new variable...');
+        if (this.organization1 !== this.organization2) {
 
-        this.devopsService.AddVariableGroup(this.organization!, this.selectedOption, this.project!)
-        .subscribe(x=> {
-          console.log(x);
-        })
+          console.log('add value to other org');
+          this.devopsService.AddVariableGroup(this.organization2!, this.selectedOption, this.project!)
+            .subscribe(x => {
+              console.log(x);
+              this.sweetalert();
+              return;
+            })
+
+        } else {
+          console.log('Crating new variable...');
+
+          this.devopsService.AddVariableGroup(this.organization!, this.selectedOption, this.project!)
+            .subscribe(x => {
+              console.log(x);
+            })
+        }
+
+
       }
-      
 
     }
   }
+sweetalert(){
+  Swal.fire(
+    'Good job!',
+    'You clicked the button!',
+    'success'
+  )
+}
 
 
-  }
+
+}
 

@@ -43,7 +43,7 @@ export class EventService {
     this.storage.set(key, value);
   }
 
-  public getFromStorage(key:string){
+  public getFromStorage(key:string): any|undefined{
     return this.storage.get(key);
   }
 }

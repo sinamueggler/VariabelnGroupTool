@@ -17,13 +17,17 @@ export class OrganizationListComponent implements OnInit {
   constructor(private localStorageService: LocalStorageService ) { }
 
   ngOnInit(): void {
-
+    this.onSelectedOrg1("selectedOrg1");
+    this.onSelectedOrg2("selectedOrg2");
   }
 
   public onSelectedOrg1(event: string) {
 
-    this.localStorageService.saveToLocalStorage('selectedOrg1', event);
-
+   this.localStorageService.saveToLocalStorage('selectedOrg1', event);
+ 
+  
+ 
+    
 
   }
   public onSelectedOrg2(event: any) {

@@ -24,19 +24,19 @@ export class AccessTokenComponent implements OnInit {
   constructor(
     private _localStorageService: LocalStorageService,
     private _fb: FormBuilder,
-    //private form: FormGroup
+ 
   ) {}
 
 
   ngOnInit(): void {
     
    
-    this._initForm();
+    // this._initForm();
   }
 
-  private _initForm() {
+  // private _initForm() {
 
-  }
+  // }
 
   setInfo(inputValue: any) {
 

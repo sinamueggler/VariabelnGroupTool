@@ -1,29 +1,24 @@
-<form class="PAT-form" onSubmit="return false;" [formGroup]="form" >
-    <mat-form-field class="PAT-full-width" appearance="fill">
-      <mat-label>Personal Access Token</mat-label>
-      <input formControlName="accessToken" type="text"  matInput  placeholder="52dfs5weydfgase" required="" #input>
-      <mat-error *ngIf="form.controls['accessToken'].hasError('required')">
-        Access Token is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="form.controls['accessToken'].hasError('minlength')">
-        Min length is <strong>20</strong>
-      </mat-error>
-      <!-- <div *ngIf="myInfo$ | async as myInfo">
-        name: {{ myInfo?.accessToken || 'no token set'}}
-      </div> -->
-      
-      
-      <!-- #box (keyup)="getPat(box.value) -->
-    </mat-form-field>
-    <div>
-      <button class="set" [disabled]="!form.valid" mat-stroked-button color="primary" (click)="setInfo(input)">
-        Set access token
-      </button>
-      <button  class="clear" mat-stroked-button color="primary" (click)="clearInfo()">
-        clear access token
-      </button>
-    </div>
+<form class="PAT-form" onSubmit="return false;" [formGroup]="form">
+  <mat-form-field class="PAT-full-width" appearance="fill">
+    <mat-label>Personal Access Token</mat-label>
+    <input formControlName="accessToken" type="text" matInput placeholder="52dfs5weydfgase" required="" #input>
+
+    <mat-error *ngIf="form.controls['accessToken'].hasError('required')">
+      Access Token is <strong>required</strong>
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['accessToken'].hasError('minlength')">
+      Min length is <strong>20</strong>
+    </mat-error>
    
+  </mat-form-field>
+  <div>
+    <button class="set" [disabled]="!form.valid" mat-stroked-button color="primary" (click)="setInfo(input)">
+      Set access token
+    </button>
+    <button class="clear" mat-stroked-button color="primary" (click)="clearInfo()">
+      clear access token
+    </button>
+  </div>
+
 </form>
-
-

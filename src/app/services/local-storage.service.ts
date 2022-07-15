@@ -53,6 +53,8 @@ export class LocalStorageService {
 
 
   public getAllOrganaisations(): string[] {
+
+    
     const org = this.getFromLocalStorage<string[]>('org1');
     if (org === undefined){
       return [];

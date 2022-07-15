@@ -16,12 +16,12 @@ export class ProjectListComponent implements OnInit {
   organization:string|undefined;
 
   @Input()
-  saveName: string|undefined;
+  selectedProjName: string|undefined;
   
-  previousValue: string|undefined;
+
 
   selectedProject1: TeamProjectReference| undefined;
-  selectedProject2: TeamProjectReference| undefined;
+ 
 
   projects: Observable<TeamProjectReference[]>| undefined;
 
@@ -33,12 +33,13 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     console.log('init proj list');
 
-    this.previousValue = this.eventService.getFromStorage(this.saveName!);
 
     this.loadProjects();
   }
 
   loadProjects(): void {
+    const oldSelectedProj = this.eventService.getFromStorage(this.selectedProjName!);
+    
     if(!this.organization){
       alert('No valid organization or project');
       return;
@@ -47,18 +48,20 @@ export class ProjectListComponent implements OnInit {
     .pipe(
       map(x=> x.value)
     );
-
-
+    if(oldSelectedProj){
+        this.projects.subscribe(x=>
+        this.selectedProject1= x.find(p=> p.id === oldSelectedProj.id))
+            }
     //  this.selectedProject1= this.eventService.getSelectedProjectReference(); 
   }
 
   onSelectProj(event: TeamProjectReference){
     if(this.selectedProject1){
 
-      this.eventService.addToStorage(this.saveName!, {name: event.name, id: event.id});
+      this.eventService.addToStorage(this.selectedProjName!, {name: event.name, id: event.id});
 
-      var sdasda = this.eventService.getFromStorage(this.saveName!);
-      console.log(this.saveName! + ': '+ this.eventService.getFromStorage(this.saveName!) );
+      var sdasda = this.eventService.getFromStorage(this.selectedProjName!);
+      console.log(this.selectedProjName! + ': '+ this.eventService.getFromStorage(this.selectedProjName!) );
       // this.eventService.setSelectedProjectReference(this.selectedProject)
     }
 
