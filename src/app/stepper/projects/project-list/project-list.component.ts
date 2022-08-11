@@ -13,56 +13,49 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class ProjectListComponent implements OnInit {
 
   @Input()
-  organization:string|undefined;
+  organization: string | undefined;
 
   @Input()
-  selectedProjName: string|undefined;
-  
+  isActive: boolean|undefined;
+
+  @Input()
+  selectedProjName: string | undefined;
 
 
-  selectedProject1: TeamProjectReference| undefined;
- 
+  selectedProject1: TeamProjectReference | undefined;
+  projects: Observable<TeamProjectReference[]> | undefined;
 
-  projects: Observable<TeamProjectReference[]>| undefined;
-
-  constructor( 
-    private localStorageService: LocalStorageService, 
+  constructor(
     private devopsService: DevopsServiceService,
     private eventService: EventService) { }
 
   ngOnInit(): void {
-    console.log('init proj list');
-
 
     this.loadProjects();
   }
 
   loadProjects(): void {
     const oldSelectedProj = this.eventService.getFromStorage(this.selectedProjName!);
-    
-    if(!this.organization){
+
+    if (!this.organization) {
       alert('No valid organization or project');
       return;
     }
     this.projects = this.devopsService.getProjects(this.organization)
-    .pipe(
-      map(x=> x.value)
-    );
-    if(oldSelectedProj){
-        this.projects.subscribe(x=>
-        this.selectedProject1= x.find(p=> p.id === oldSelectedProj.id))
-            }
-    //  this.selectedProject1= this.eventService.getSelectedProjectReference(); 
+      .pipe(
+        map(x => x.value)
+      );
+    if (oldSelectedProj) {
+      this.projects.subscribe(x =>
+        this.selectedProject1 = x.find(p => p.id === oldSelectedProj.id))
+    }
   }
 
-  onSelectProj(event: TeamProjectReference){
-    if(this.selectedProject1){
+  onSelectProj(event: TeamProjectReference) {
+    if (this.selectedProject1) {
 
-      this.eventService.addToStorage(this.selectedProjName!, {name: event.name, id: event.id});
+      this.eventService.addToStorage(this.selectedProjName!, { name: event.name, id: event.id });
 
-      var sdasda = this.eventService.getFromStorage(this.selectedProjName!);
-      console.log(this.selectedProjName! + ': '+ this.eventService.getFromStorage(this.selectedProjName!) );
-      // this.eventService.setSelectedProjectReference(this.selectedProject)
     }
 
   }

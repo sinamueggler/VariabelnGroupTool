@@ -1,16 +1,51 @@
-
-  .content {
-    margin-top: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 25px;
-  }
-
-  .mat-form-field + .mat-form-field {
+  .mat-form-field+.mat-form-field {
     margin-left: 8px;
   }
 
-  .radioBtnList{
+  /* search */
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+
+  /* list */
+  .list {
     display: inline-block;
 
+
+  }
+
+  .radio-group {
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: 10px;
+  }
+
+  .listItem {
+    display: block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    font-size: 16px;
+  }
+
+  .btnSend {
+    margin-top: 30px;
+    display: block;
+  }
+
+  /* add and back btn */
+
+  .add {
+    margin-right: 25px;
+  }
+
+  .back {
+    margin-top: 18px;
+    align-content: center;
   }

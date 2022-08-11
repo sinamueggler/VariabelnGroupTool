@@ -1,22 +1,29 @@
 <div class="content">
-<mat-form-field appearance="fill">
+  <mat-form-field appearance="fill">
     <mat-label>Quell Projekt</mat-label>
-    <mat-select (selectionChange)="onSelectedOrg1($event.value)">
-      
+    <mat-select (selectionChange)="onSelectedOrg1($event.value)" [disabled]="isActive" class="t">
+
+      <mat-option value="egeli-informatik-vsts"><em>egeli-informatik-vsts</em></mat-option>
+      <mat-option value="egeli-informatik-demo"><em>egeli-informatik-demo</em></mat-option>
       <mat-option *ngFor="let option of organization" [value]="option">
         {{option}}
       </mat-option>
+
     </mat-select>
   </mat-form-field>
-</div> 
-<div>
-    <mat-form-field appearance="fill">
-        <mat-label>Ziel Projekt</mat-label>
-        <mat-select (selectionChange)="onSelectedOrg2($event.value)">
-          
-          <mat-option *ngFor="let option of organization" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-</div> 
+</div>
+
+<div class="content" >
+  <mat-form-field appearance="fill" >
+    <mat-label>Ziel Projekt</mat-label>
+    <mat-select (selectionChange)="onSelectedOrg2($event.value)" [disabled]="isActive">
+      
+      <mat-option value="egeli-informatik-vsts"><em>egeli-informatik-vsts</em> </mat-option>
+      <mat-option value="egeli-informatik-demo"><em>egeli-informatik-demo</em></mat-option>
+      <mat-option *ngFor="let option of organization" [value]="option">
+        {{option}}
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { accessTokenInfo } from '../model/accessTokenInfo.model';
+import { EventService } from './event.service';
 import { LocalStorageRefService } from "./local-storage-ref.service";
 
 interface MyData{
@@ -22,7 +23,7 @@ export class LocalStorageService {
   });
   myData$ = this._myData$.asObservable();
 
-  constructor(private _localStorageRefService: LocalStorageRefService,private httpClient: HttpClient) {
+  constructor(private _localStorageRefService: LocalStorageRefService,private eventService: EventService) {
     this._localStorage = _localStorageRefService.localStorage;
   }
 
@@ -52,26 +53,28 @@ export class LocalStorageService {
   }
 
 
-  public getAllOrganaisations(): string[] {
+  // public getAllOrganaisations(): string[] {
 
     
-    const org = this.getFromLocalStorage<string[]>('org1');
-    if (org === undefined){
-      return [];
-    }
-    return org;
-  }
+  //   const org = this.getFromLocalStorage<string[]>('org1');
+  //   if (org === undefined){
+  //     return [];
+  //   }
+  //   return org;
+  // }
 
-  public clearOrganisations(){
-    this._localStorage.removeItem('org1')
+  // public clearOrganisations(){
+  //   this._localStorage.removeItem('org1')
 
-  }
+  // }
 
   public getFromLocalStorage<T>(key: string): T|undefined {
     const value = localStorage.getItem(key);
-    if (value == undefined){
+    if (value == undefined ){
       return undefined;
     }
+
+  
     return JSON.parse(value);
   }
 

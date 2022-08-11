@@ -31,4 +31,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 25px;
+   
+  }
+
+  
+/* button back next */
+.btn1{
+  justify-content: center;
+  width: 10px;
+  margin-right: 12px;
+  }
+  
+  .btn2{
+    justify-content: center;
+    width: 10px;
+   
+  }
+
+
+  .btns{
+    margin-top: 15px;
   }

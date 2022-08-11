@@ -13,6 +13,11 @@ export class OrganizationListComponent implements OnInit {
   
   @Input()
   organization:string[]|undefined;
+  @Input()
+  isActive: boolean | undefined;
+
+  @Input()
+  disable: boolean|undefined;
 
   constructor(private localStorageService: LocalStorageService ) { }
 
@@ -24,16 +29,14 @@ export class OrganizationListComponent implements OnInit {
   public onSelectedOrg1(event: string) {
 
    this.localStorageService.saveToLocalStorage('selectedOrg1', event);
- 
-  
- 
-    
+
 
   }
   public onSelectedOrg2(event: any) {
 
     this.localStorageService.saveToLocalStorage('selectedOrg2', event);
-    
 
   }
+
+ 
 }

@@ -11,6 +11,7 @@ import { ProjectsComponent } from './stepper/projects/projects.component';
 import { VariablesComponent } from './stepper/variables/variables.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,12 +36,6 @@ import { ProjectListComponent } from './stepper/projects/project-list/project-li
 import { OrganizationListComponent } from './stepper/organization/organization-list/organization-list.component';
 
 
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +54,7 @@ import { OrganizationListComponent } from './stepper/organization/organization-l
     AppRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
+    MatAutocompleteModule,
     MatCardModule,
     MatMenuModule,
     MatIconModule,
@@ -76,7 +72,8 @@ import { OrganizationListComponent } from './stepper/organization/organization-l
     ReactiveFormsModule,
     HttpClientModule,
     MatExpansionModule,
-    DragDropModule
+    DragDropModule,
+    
   ],
 
 

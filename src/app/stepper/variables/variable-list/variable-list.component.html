@@ -1,56 +1,43 @@
-<mat-label>Variable Group from Project {{this.project}}</mat-label>
-<!-- 
-<mat-card>
-    <mat-selection-list>
-        <mat-list-option *ngFor="let groups of (variables| async)">
-            {{groups.name}}
-        </mat-list-option>
-    </mat-selection-list>
-</mat-card> -->
-
 
 <mat-card>
+  <div>
+    <mat-label><h2> {{this.project}}</h2></mat-label>
+    
+  </div>
+
   <div *ngIf="selectable; else asList">
-    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-      [(ngModel)]="selectedOption">
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="radio-group" [(ngModel)]="selectedOption">
 
       <mat-list-item>
-        <mat-radio-button class="example-radio-button" *ngFor="let groups of (variables| async)" [value]="groups">
+        <mat-radio-button class="listItem" *ngFor="let groups of (variables| async)" [value]="groups">
 
           <mat-list>
-           {{groups.id}} {{groups.name}}
+           {{groups.name}}
           </mat-list>
 
         </mat-radio-button>
       </mat-list-item>
     </mat-radio-group>
 
+    <div class="btnSend">
+      <button mat-stroked-button color="primary" (click)="CopyVariableTotargetProject()" class="add">Add/Update</button>
+      <button mat-stroked-button matStepperPrevious class="back"><mat-icon>arrow_back</mat-icon> select different project</button>
+      <!-- <button mat-stroked-button color="primary" (click)="errorAlert()">alert btn</button> -->
 
-    <button mat-button (click)="CopyVariableTotargetProject()">Copy</button>
-
-    <button mat-button (click)="sweetalert()">sa</button>
-
-
+    </div>
 
   </div>
 
   <ng-template #asList>
-    <mat-list class="radioBtnList">
-      
+    <mat-list class="list">
+
       <mat-list-item *ngFor="let groups of (variables| async)">
-        <div><p>id:{{groups.id}},  {{groups.name}}</p></div>
-          
-        
+        <div>
+          <p> {{groups.name}} </p>
+        </div>
       </mat-list-item>
     </mat-list>
   </ng-template>
 
 </mat-card>
 
-
-<!-- <button mat-button (click)="onBtnClick()">Click me</button> -->
-
-
-<ul>
-  <li *ngFor="let el of myELements">{{el}}</li>
-</ul>

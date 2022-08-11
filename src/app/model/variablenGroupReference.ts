@@ -4,5 +4,7 @@ export interface VariablenGroupReference {
     description: string;
     id: string;
     type:string;
+    modifiedOn: string;
+    createdOn: string;
   
 }

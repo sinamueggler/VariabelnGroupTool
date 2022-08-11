@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
+import { accessTokenInfo } from 'src/app/model/accessTokenInfo.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -29,14 +30,9 @@ export class AccessTokenComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
-   
-    // this._initForm();
+    this.checkAccessTokenExist();
+
   }
-
-  // private _initForm() {
-
-  // }
 
   setInfo(inputValue: any) {
 
@@ -58,7 +54,12 @@ export class AccessTokenComponent implements OnInit {
     this._localStorageService.clearInfo();
   }
 
-
+  checkAccessTokenExist(){
+    const token = this._localStorageService.getFromLocalStorage<accessTokenInfo>("accessToken")?.accessToken;
+   if(token){
+    this.form.get('accessToken')!.setValue(token);
+   }
+  }
 
 
 }

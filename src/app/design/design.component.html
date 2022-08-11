@@ -1,37 +1,29 @@
 <mat-toolbar class="mat-h1" color="primary">Variablen Group Tool</mat-toolbar>
 
 <div class="grid-container">
-  <mat-vertical-stepper #stepper>
 
+  <mat-vertical-stepper #stepper [linear]="true">
+    
     <mat-step label="Access-Token" optional="false">
-      <app-access-token (accessTokenSelected)="accessTokenSelected($event)"></app-access-token>
+      <app-access-token></app-access-token>
       <div class="stepButton">
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext [disabled]="!validAccessToken()">Next</button>
       </div>
-
     </mat-step>
 
-    <mat-step label="Organisationen" optional="false">
-
-      <app-organization></app-organization>
-
-      <div class="stepButton">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-
+    <mat-step label="Organisationen" optional="false" #organisationStep>
+      <app-organization [isActive]="stepper.selected == organisationStep"></app-organization>
     </mat-step>
 
     <mat-step label="Projects" optional="false" #projectStep>
+      <app-projects *ngIf="stepper.selected == projectStep"></app-projects>
+      <!-- <app-projects [isActive]="stepper.selected == projectStep"></app-projects> -->
 
-      <app-projects *ngIf="stepper.selected == projectStep" ></app-projects>
-
+    
     </mat-step>
 
-    <mat-step label="Variables" optional="false"  #VarStep>
-
+    <mat-step label="Variables" optional="false" #VarStep>
       <app-variables *ngIf=" stepper.selected== VarStep"></app-variables>
-
     </mat-step>
 
     <mat-vertical-stepper>

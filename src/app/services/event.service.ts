@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 import { TeamProjectReference } from '../model/teamProjectReference.model';
 
 @Injectable({
@@ -36,8 +37,6 @@ export class EventService {
 
   }
 
-
-
   public addToStorage(key: string, value: any){
      
     this.storage.set(key, value);
@@ -46,4 +45,14 @@ export class EventService {
   public getFromStorage(key:string): any|undefined{
     return this.storage.get(key);
   }
+
+  public errorAlert(message: string){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: message,
+     
+    })
+    }
 }
+

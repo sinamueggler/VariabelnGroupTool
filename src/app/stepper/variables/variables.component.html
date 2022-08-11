@@ -1,14 +1,10 @@
-
 <div class="content">
   <div>
-    <app-variable-list *ngIf="project1 && currentOrg1" [project]="project1" [organization]="currentOrg1" [selectable]="true" [addVariablesToStorage]="false"></app-variable-list>
+    <app-variable-list *ngIf="project1 && currentOrg1" [project]="project1" [organization]="currentOrg1"
+      [selectable]="true" [addVariablesToStorage]="false" (updateDisplayListEvent)="updateDisplayList()"></app-variable-list>
   </div>
   <div>
-    <app-variable-list *ngIf="project2 && currentOrg2" [project]="project2" [organization]="currentOrg2" [selectable]="false" [addVariablesToStorage]="true"></app-variable-list>
+    <app-variable-list #displayList *ngIf="project2 && currentOrg2" [project]="project2" [organization]="currentOrg2"
+      [selectable]="false" [addVariablesToStorage]="true"></app-variable-list>
   </div>
-  <!-- <div *ngIf="project2 && currentOrg2">
-    <p *ngFor=""></p>
-  </div> -->
 </div>
-
-

@@ -30,3 +30,32 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 25px;
 }
+
+/* button back next */
+.btn1{
+justify-content: center;
+width: 10px;
+margin-right: 12px;
+}
+
+.btn2{
+  justify-content: center;
+  width: 10px;
+ 
+}
+
+/* buttons add remove */
+.add{
+
+margin-right: 25px;
+
+}
+.remove{
+
+  margin-top: 18px;
+  align-content: center;
+}
+
+.btns{
+  margin-top: 20px;
+}
