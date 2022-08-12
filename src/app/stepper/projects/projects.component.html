@@ -3,8 +3,8 @@
     <app-project-list selectedProjName="selectedProj1" *ngIf="currentOrg1" [organization]="currentOrg1"
       [isActive]="!isActive"></app-project-list>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext [disabled]="!validProjects()">Next</button>
+      <button class="btn1" mat-button matStepperPrevious>Back</button>
+      <button class="btn2" mat-button matStepperNext [disabled]="!validProjects()">Next</button>
     </div>
   </div>
   <div>

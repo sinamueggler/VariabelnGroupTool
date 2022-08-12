@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Pipe, ViewChild, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import { map, Observable, pipe } from 'rxjs';
 import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
 import { VariablenGroupReference } from 'src/app/model/variablenGroupReference';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';

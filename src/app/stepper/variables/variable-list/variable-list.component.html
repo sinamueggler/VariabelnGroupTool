@@ -1,20 +1,28 @@
 
 <mat-card>
-  <div>
-    <mat-label><h2> {{this.project}}</h2></mat-label>
-    
-  </div>
 
   <div *ngIf="selectable; else asList">
+   
+    <div >
+      <mat-label><h2 class="projName"> {{this.project}}</h2>  
+        <mat-form-field class="search">
+        <mat-label>Search<mat-icon>search</mat-icon></mat-label>
+        <input matInput [formControl]="search" 
+        (keyup)="setFilter(filterInput.value)"
+        (paste)="setFilter(filterInput.value)" 
+        (search)="setFilter(filterInput.value)" #filterInput>
+      </mat-form-field></mat-label>
+    </div>
+  
     <mat-radio-group aria-labelledby="example-radio-group-label" class="radio-group" [(ngModel)]="selectedOption">
 
       <mat-list-item>
-        <mat-radio-button class="listItem" *ngFor="let groups of (variables| async)" [value]="groups">
+      
 
+        <mat-radio-button class="listItem" *ngFor="let groups of (getFilteredList(variables| async))" [value]="groups">
           <mat-list>
            {{groups.name}}
           </mat-list>
-
         </mat-radio-button>
       </mat-list-item>
     </mat-radio-group>
@@ -29,6 +37,10 @@
   </div>
 
   <ng-template #asList>
+    <div>
+      <mat-label><h2 class="projName2"> {{this.project}}</h2></mat-label>
+    </div>
+  
     <mat-list class="list">
 
       <mat-list-item *ngFor="let groups of (variables| async)">

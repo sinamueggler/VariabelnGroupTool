@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, Pipe } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, Observable,of,OperatorFunction, startWith, switchMap } from 'rxjs';
 import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
 import { VariablenGroupReference } from 'src/app/model/variablenGroupReference';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';
@@ -32,14 +32,17 @@ export class VariableListComponent implements OnInit {
   @Output()
   updateDisplayListEvent = new EventEmitter();
 
-
+  search = new FormControl();
+control = new FormControl();
   variables: Observable<VariablenGroupReference[]> | undefined;
   updatedVariables: string | undefined;
   selection = new FormControl();
   selectedOption: VariablenGroupReference | undefined;
   organization1: string | undefined;
   organization2: string | undefined;
-  // myControl = new FormControl('');
+
+  filter: string | undefined;
+
   
 
   constructor(
@@ -91,9 +94,6 @@ export class VariableListComponent implements OnInit {
           this.successfulAlert('updated variable-group '+ foundVariable.name + ' successfully')
       } else {
         //add
-        // if (this.organization1 !== this.organization2) {
-
-          console.log('add value to other org');
           this.devopsService.AddVariableGroup(this.organization2!, this.selectedOption, this.project!)
             .subscribe(x => {
               console.log(x);
@@ -111,20 +111,30 @@ export class VariableListComponent implements OnInit {
               return;
             })
 
-        // } else {
-        //   console.log('Crating new variable...');
-
-        //   this.devopsService.AddVariableGroup(this.organization2!, this.selectedOption, this.project!)
-        //     .subscribe(x => {
-        //       console.log(x);
-        //     })
-        // }
-
-
-
       }
     }
   }
+
+  $search = this.search.valueChanges.pipe(
+    startWith(null),
+    debounceTime(200),
+    switchMap((res: string) => {
+      if (!res) return of(this.eventService.getFromStorage("savedVariablesList"));
+      res = res.toLowerCase();
+      return of(
+        this.eventService.getFromStorage("savedVariablesList").filter((x: string) => x.toLowerCase().indexOf(res) >= 0)
+      );
+    })
+  );
+  // searchObject(option: any) {
+  //   let value = this.control.value || [];
+  //   if (option.selected) value.push(option.value);
+  //   else value = value.filter((x: any) => x != option.value);
+  //   this.control.setValue(value);
+  // }
+ 
+
+
 successfulAlert(key:string){
   Swal.fire({
     position: 'top-end',
@@ -136,19 +146,16 @@ successfulAlert(key:string){
 }
 
 
-// transform(items: any[], searchText: string): any[] {
-//   if (!items) {
-//     return [];
-//   }
-//   if (!searchText) {
-//     return items;
-//   }
-//   searchText = searchText.toLocaleLowerCase();
+getFilteredList(variables: VariablenGroupReference[] | null): VariablenGroupReference[] | null {
+  if(variables && this.filter){
+    return variables.filter(x => x.name.toLocaleLowerCase().indexOf(this.filter!.toLowerCase()) >= 0)
+  }
+  return variables;
+}
 
-//   return items.filter(it => {
-//     return it.toLocaleLowerCase().includes(searchText);
-//   });
-// }
+setFilter(filter: string) {
+  this.filter = filter;
+}
 
 }
 

@@ -49,3 +49,30 @@
     margin-top: 18px;
     align-content: center;
   }
+
+  .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #4dd0e1;
+    box-shadow: 0 1px 0 0 #4dd0e1;
+  }
+
+  .search {
+    display: inline-block;
+    align-items: flex-end;
+    margin-top: 18px;
+    align-content: center;
+width: 50%;
+  }
+
+  .projName {
+    display: inline-block;
+    margin-right: 50px;
+
+
+  }
+
+  .projName2 {
+    margin-top: 18px;
+  }
+
+
+  
