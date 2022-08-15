@@ -28,7 +28,6 @@ export class OrganizationComponent implements OnInit {
 
   ngOnInit() {
   
-
   }
 
   addOrganisation(org: string) {

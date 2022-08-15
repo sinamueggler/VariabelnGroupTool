@@ -17,7 +17,7 @@ import { VariableListComponent } from './variable-list/variable-list.component';
 })
 export class VariablesComponent implements OnInit {
 
-@ViewChild('displayList') displayList!: VariableListComponent;
+  @ViewChild('displayList') displayList!: VariableListComponent;
 
   variables: Observable<VariablenGroupReference[]> | undefined;
 
@@ -29,7 +29,6 @@ export class VariablesComponent implements OnInit {
   selection = new FormControl();
 
   constructor(private localStorageService: LocalStorageService,
-    private devopsService: DevopsServiceService,
     private eventService: EventService) { }
 
 
@@ -42,7 +41,7 @@ export class VariablesComponent implements OnInit {
 
   }
 
-  updateDisplayList():  void{
+  updateDisplayList(): void {
 
     this.displayList.loadVariables();
   }

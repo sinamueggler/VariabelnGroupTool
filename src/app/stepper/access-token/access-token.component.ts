@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { from, Observable, Subject } from 'rxjs';
 import { accessTokenInfo } from 'src/app/model/accessTokenInfo.model';
@@ -21,7 +21,8 @@ export class AccessTokenComponent implements OnInit {
 
   @Output()
   accessTokenSelected = new EventEmitter<string>();
-
+  @Input()
+  isActive: boolean | undefined;
   constructor(
     private _localStorageService: LocalStorageService,
     private _fb: FormBuilder,
@@ -60,7 +61,14 @@ export class AccessTokenComponent implements OnInit {
     this.form.get('accessToken')!.setValue(token);
    }
   }
+  validAccessToken() {
+    var accessTokenValidate = this._localStorageService.getFromLocalStorage("accessToken");
+    if (!accessTokenValidate) {
+      return false;
+    }
+    return true;
 
+  }
 
 }
 

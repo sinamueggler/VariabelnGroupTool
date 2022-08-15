@@ -10,16 +10,17 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 
 export class OrganizationListComponent implements OnInit {
-  
+
   @Input()
-  organization:string[]|undefined;
+  organization: string[] | undefined;
+  
   @Input()
   isActive: boolean | undefined;
 
   @Input()
-  disable: boolean|undefined;
+  disable: boolean | undefined;
 
-  constructor(private localStorageService: LocalStorageService ) { }
+  constructor(private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.onSelectedOrg1("selectedOrg1");
@@ -28,7 +29,7 @@ export class OrganizationListComponent implements OnInit {
 
   public onSelectedOrg1(event: string) {
 
-   this.localStorageService.saveToLocalStorage('selectedOrg1', event);
+    this.localStorageService.saveToLocalStorage('selectedOrg1', event);
 
 
   }
@@ -38,5 +39,5 @@ export class OrganizationListComponent implements OnInit {
 
   }
 
- 
+
 }

@@ -4,11 +4,8 @@
 
   <mat-vertical-stepper #stepper [linear]="true">
     
-    <mat-step label="Access-Token" optional="false">
-      <app-access-token></app-access-token>
-      <div class="stepButton">
-        <button mat-button matStepperNext [disabled]="!validAccessToken()">Next</button>
-      </div>
+    <mat-step label="Access-Token" optional="false" #accessTokenStep>
+      <app-access-token [isActive]="stepper.selected == accessTokenStep"></app-access-token>
     </mat-step>
 
     <mat-step label="Organisationen" optional="false" #organisationStep>
@@ -17,9 +14,6 @@
 
     <mat-step label="Projects" optional="false" #projectStep>
       <app-projects *ngIf="stepper.selected == projectStep"></app-projects>
-      <!-- <app-projects [isActive]="stepper.selected == projectStep"></app-projects> -->
-
-    
     </mat-step>
 
     <mat-step label="Variables" optional="false" #VarStep>

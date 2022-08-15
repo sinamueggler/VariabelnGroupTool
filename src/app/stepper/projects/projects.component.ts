@@ -17,19 +17,20 @@ export class ProjectsComponent implements OnInit {
   projects: Observable<TeamProjectReference[]> | undefined;
   currentOrg1: string|undefined;
   currentOrg2: string|undefined;
+ 
 
   @Input()
   isActive: boolean|undefined;
 
   constructor(private localStorageService: LocalStorageService, 
     private eventService: EventService) { }
-
   ngOnInit(): void {
 
     this.currentOrg1 =this.localStorageService.getFromLocalStorage('selectedOrg1')!;
 
     this.currentOrg2 =this.localStorageService.getFromLocalStorage('selectedOrg2')!;
    
+  
   }
 
   validProjects() {
@@ -42,6 +43,7 @@ export class ProjectsComponent implements OnInit {
     }
     return true;
   }
+
 
   }
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, Pipe } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map, Observable,of,OperatorFunction, startWith, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, Observable, of, OperatorFunction, startWith, switchMap } from 'rxjs';
 import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
 import { VariablenGroupReference } from 'src/app/model/variablenGroupReference';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';
@@ -33,7 +33,7 @@ export class VariableListComponent implements OnInit {
   updateDisplayListEvent = new EventEmitter();
 
   search = new FormControl();
-control = new FormControl();
+  control = new FormControl();
   variables: Observable<VariablenGroupReference[]> | undefined;
   updatedVariables: string | undefined;
   selection = new FormControl();
@@ -43,7 +43,7 @@ control = new FormControl();
 
   filter: string | undefined;
 
-  
+
 
   constructor(
     private devopsService: DevopsServiceService,
@@ -84,33 +84,28 @@ control = new FormControl();
 
       if (foundVariable !== undefined) {
         //update
-
-        console.log('Updating variable...');
         this.devopsService.PutUpdateVariableGroup(this.organization2!, foundVariable.id, this.selectedOption)
           .subscribe(x => {
             console.log(x);
             this.updateDisplayListEvent.emit('');
           })
-          this.successfulAlert('updated variable-group '+ foundVariable.name + ' successfully')
+        this.successfulAlert('updated variable-group ' + foundVariable.name + ' successfully')
       } else {
         //add
-          this.devopsService.AddVariableGroup(this.organization2!, this.selectedOption, this.project!)
-            .subscribe(x => {
-              console.log(x);
+        this.devopsService.AddVariableGroup(this.organization2!, this.selectedOption, this.project!)
+          .subscribe(x => {
+            console.log(x);
+            var updatedTargetVariables: object[] = [];
+            this.eventService.getFromStorage("savedVariablesList")
+              .forEach((x: object) => updatedTargetVariables.push(x));
 
-              var updatedTargetVariables: object[] = [];
-              this.eventService.getFromStorage("savedVariablesList")
-              .forEach(( x: object) => updatedTargetVariables.push(x));
+            updatedTargetVariables.push(x);
 
-              updatedTargetVariables.push(x);
-
-              this.eventService.addToStorage("savedVariablesList", updatedTargetVariables)
-              this.updateDisplayListEvent.emit('');
-              this.successfulAlert('added new variablegroup successfully!');
-
-              return;
-            })
-
+            this.eventService.addToStorage("savedVariablesList", updatedTargetVariables)
+            this.updateDisplayListEvent.emit('');
+            this.successfulAlert('added new variablegroup successfully!');
+            return;
+          })
       }
     }
   }
@@ -126,36 +121,28 @@ control = new FormControl();
       );
     })
   );
-  // searchObject(option: any) {
-  //   let value = this.control.value || [];
-  //   if (option.selected) value.push(option.value);
-  //   else value = value.filter((x: any) => x != option.value);
-  //   this.control.setValue(value);
-  // }
- 
 
-
-successfulAlert(key:string){
-  Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: key,
-    showConfirmButton: false,
-    timer: 1500
-   } )
-}
-
-
-getFilteredList(variables: VariablenGroupReference[] | null): VariablenGroupReference[] | null {
-  if(variables && this.filter){
-    return variables.filter(x => x.name.toLocaleLowerCase().indexOf(this.filter!.toLowerCase()) >= 0)
+  successfulAlert(key: string) {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: key,
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
-  return variables;
-}
 
-setFilter(filter: string) {
-  this.filter = filter;
-}
+
+  getFilteredList(variables: VariablenGroupReference[] | null): VariablenGroupReference[] | null {
+    if (variables && this.filter) {
+      return variables.filter(x => x.name.toLocaleLowerCase().indexOf(this.filter!.toLowerCase()) >= 0)
+    }
+    return variables;
+  }
+
+  setFilter(filter: string) {
+    this.filter = filter;
+  }
 
 }
 

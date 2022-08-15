@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStep, MatStepper } from '@angular/material/stepper';
@@ -17,6 +17,7 @@ export class DesignComponent implements OnInit {
   variables: Observable<any[]> | undefined;
   @ViewChild('stepper') stepper!: MatStepper;
 
+
   constructor(private localStorageService: LocalStorageService, private eventService: EventService) { }
   ngOnInit(): void {
 
@@ -27,13 +28,5 @@ export class DesignComponent implements OnInit {
 
   }
 
-  validAccessToken() {
-    var accessTokenValidate = this.localStorageService.getFromLocalStorage("accessToken");
-    if (!accessTokenValidate) {
-      return false;
-    }
-    return true;
-
-  }
 
 }

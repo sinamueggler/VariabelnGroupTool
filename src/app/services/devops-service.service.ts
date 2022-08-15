@@ -30,6 +30,7 @@ export class DevopsServiceService {
     return this.httpClient.get<CollectionValue<TeamProjectReference>>(this.projectUrl + org + '/_apis/projects?api-version=6.0', {
       headers: headers,
       responseType: 'json'
+      
     }).pipe(
       shareReplay(1)
     );
@@ -89,14 +90,12 @@ export class DevopsServiceService {
       { 'headers': headers }
     )
 
-
-
   }
 
-  
 
 
-  
+
+
   public PutUpdateVariableGroup(org: string, groupId: string, varGroupName: any,): Observable<CollectionValue<VariablenGroupReference>> {
 
     const json = this.localstorageService.getFromLocalStorage<accessTokenInfo>("accessToken");

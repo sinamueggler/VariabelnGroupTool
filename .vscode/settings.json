@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/87b67095-b319-42c5-bd8c-00b2fe461981/microsoft.web/sites/subscriptions/87b67095-b319-42c5-bd8c-00b2fe461981/resourceGroups/rsg-mugsi-variablen-group/providers/Microsoft.Web/sites/manage-variable-groups",
+    "appService.deploySubpath": "dist\\variabeln-group-tool"
+}

@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { TeamProjectReference } from 'src/app/model/teamProjectReference.model';
 import { DevopsServiceService } from 'src/app/services/devops-service.service';
 import { EventService } from 'src/app/services/event.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-project-list',
@@ -16,7 +16,7 @@ export class ProjectListComponent implements OnInit {
   organization: string | undefined;
 
   @Input()
-  isActive: boolean|undefined;
+  isActive: boolean | undefined;
 
   @Input()
   selectedProjName: string | undefined;
@@ -24,6 +24,7 @@ export class ProjectListComponent implements OnInit {
 
   selectedProject1: TeamProjectReference | undefined;
   projects: Observable<TeamProjectReference[]> | undefined;
+  
 
   constructor(
     private devopsService: DevopsServiceService,
@@ -45,6 +46,11 @@ export class ProjectListComponent implements OnInit {
       .pipe(
         map(x => x.value)
       );
+
+    // if (!oldSelectedProj) {
+    // this.errorAlert();
+    // }
+
     if (oldSelectedProj) {
       this.projects.subscribe(x =>
         this.selectedProject1 = x.find(p => p.id === oldSelectedProj.id))
@@ -60,9 +66,16 @@ export class ProjectListComponent implements OnInit {
 
   }
 
+  errorAlert() {
+    Swal.fire({
+      icon: 'error',
+      title: 'No valid organization ',
+      text: 'please check the organizations and select a valid organization',
+   
+    })
+  }
 
 
-
-
+  
 
 }

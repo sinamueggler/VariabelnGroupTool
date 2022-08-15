@@ -19,5 +19,8 @@
       clear access token
     </button>
   </div>
+  <div class="stepButton">
+    <button mat-button matStepperNext [disabled]="!validAccessToken()||!isActive">Next</button>
+  </div>
 
 </form>

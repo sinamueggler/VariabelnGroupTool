@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +34,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { VariableListComponent } from './stepper/variables/variable-list/variable-list.component';
 import { ProjectListComponent } from './stepper/projects/project-list/project-list.component';
 import { OrganizationListComponent } from './stepper/organization/organization-list/organization-list.component';
+import { ErrorCatchingInterceptor } from './interceptors/error-catching.interceptor';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { OrganizationListComponent } from './stepper/organization/organization-l
 
 
   providers: [
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorCatchingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
